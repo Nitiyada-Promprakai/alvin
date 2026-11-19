@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ใจดี มีสุข | Portfolio</title>
+  <meta name="description" content="Portfolio ของนางสาวใจดี มีสุข นักเรียน ม.6 วิทย์-คณิต ผู้มุ่งมั่นศึกษาต่อวิศวกรรมคอมพิวเตอร์">
+
+  <!-- Google Fonts: Prompt -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Prompt', 'sans-serif'] },
+          colors: {
+            nontri: { 50:'#ecfdf3', 100:'#d1fae1', 200:'#a7f3c6', 300:'#6ee7a4', 400:'#34d37e', 500:'#10b461', 600:'#059650', 700:'#047843', 800:'#065f38', 900:'#064e30', 950:'#022c1b' },
+            gold: { 300:'#fcd977', 400:'#fbc84a', 500:'#f5b41f', 600:'#d99412' }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+
+  <script>
+    // ตั้งค่าธีมก่อนหน้าเว็บแสดง เพื่อไม่ให้กระพริบ
+    try {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    } catch (e) {}
+  </script>
+
+  <style>
+    body { font-family: 'Prompt', sans-serif; }
+    @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+    .float-anim { animation: floaty 5s ease-in-out infinite; }
+    .card-lift { transition: transform .3s ease, box-shadow .3s ease; }
+    .card-lift:hover, .card-lift:active { transform: translateY(-8px); box-shadow: 0 20px 40px -12px rgba(4,120,67,.35); }
+    .timeline-dot::before { content:''; position:absolute; left:-0.57rem; top:.35rem; width:1rem; height:1rem; border-radius:9999px; background:#f5b41f; box-shadow:0 0 0 4px rgba(245,180,31,.25); }
+    #toast { transition: opacity .4s ease, transform .4s ease; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-700 dark:bg-slate-950 dark:text-slate-300 antialiased transition-colors duration-300">
+
+  <!-- Scroll Progress Bar -->
+  <div id="progress" class="fixed top-0 left-0 h-1 w-0 z-[60] bg-gradient-to-r from-nontri-500 to-gold-400"></div>
+
+  <!-- ===== 1. Navbar ===== -->
+  <header class="fixed top-0 inset-x-0 z-50 backdrop-blur bg-white/80 dark:bg-slate-950/80 border-b border-slate-200/70 dark:border-slate-800">
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="#home" class="flex items-center gap-3">
+        <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-nontri-600 to-nontri-800 text-gold-300 font-bold grid place-items-center shadow">JM</span>
+        <span class="font-semibold text-slate-900 dark:text-white">ใจดี มีสุข</span>
+      </a>
+      <ul class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <li><a href="#about" class="hover:text-nontri-600 dark:hover:text-nontri-400">เกี่ยวกับฉัน</a></li>
+        <li><a href="#skills" class="hover:text-nontri-600 dark:hover:text-nontri-400">ทักษะ</a></li>
+        <li><a href="#projects" class="hover:text-nontri-600 dark:hover:text-nontri-400">ผลงาน</a></li>
+        <li><a href="#activities" class="hover:text-nontri-600 dark:hover:text-nontri-400">กิจกรรม</a></li>
+        <li><a href="#awards" class="hover:text-nontri-600 dark:hover:text-nontri-400">รางวัล</a></li>
+        <li><a href="#contact" class="hover:text-nontri-600 dark:hover:text-nontri-400">ติดต่อ</a></li>
+      </ul>
+      <div class="flex items-center gap-2">
+        <button id="themeBtn" aria-label="สลับโหมดสว่าง/มืด" class="w-10 h-10 rounded-xl border border-slate-200 dark:border-slate-700 grid place-items-center hover:bg-slate-100 dark:hover:bg-slate-800">
+          <i class="fa-solid fa-moon dark:hidden"></i><i class="fa-solid fa-sun hidden dark:inline text-gold-400"></i>
+        </button>
+        <button id="menuBtn" aria-label="เปิดเมนู" class="md:hidden w-10 h-10 rounded-xl border border-slate-200 dark:border-slate-700 grid place-items-center">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
+      <ul class="px-4 py-3 space-y-1 font-medium">
+        <li><a href="#about" class="block py-2">เกี่ยวกับฉัน</a></li>
+        <li><a href="#skills" class="block py-2">ทักษะ</a></li>
+        <li><a href="#projects" class="block py-2">ผลงาน</a></li>
+        <li><a href="#activities" class="block py-2">กิจกรรม</a></li>
+        <li><a href="#awards" class="block py-2">รางวัล</a></li>
+        <li><a href="#contact" class="block py-2">ติดต่อ</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== 2. Hero ===== -->
+    <section id="home" class="relative pt-28 pb-20 overflow-hidden">
+      <div class="absolute -top-32 -right-32 w-96 h-96 bg-nontri-300/30 dark:bg-nontri-700/20 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-gold-300/30 dark:bg-gold-500/10 rounded-full blur-3xl"></div>
+      <div class="relative max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-12 items-center">
+        <div data-aos="fade-up">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium bg-gold-300/30 text-gold-600 dark:text-gold-300 border border-gold-400/40">
+            <i class="fa-solid fa-graduation-cap"></i> Ready for University / TCAS
+          </span>
+          <p class="mt-5 text-nontri-700 dark:text-nontri-400 font-medium">นักเรียนชั้นมัธยมศึกษาปีที่ 6 • แผนการเรียนวิทย์-คณิต</p>
+          <h1 class="mt-2 text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white leading-tight">นางสาวใจดี มีสุข</h1>
+          <p class="text-lg text-slate-500 dark:text-slate-400">Miss Jaidee Meesuk</p>
+          <p class="mt-4 text-lg">มุ่งมั่นศึกษาต่อ <span class="font-semibold text-nontri-700 dark:text-nontri-400">คณะวิศวกรรมศาสตร์ สาขาวิศวกรรมคอมพิวเตอร์</span> มหาวิทยาลัยเกษตรศาสตร์</p>
+          <p class="mt-3 italic text-slate-500 dark:text-slate-400">“Learning through curiosity, creating with passion.”</p>
+
+          <div class="mt-8 grid grid-cols-3 gap-3 max-w-md">
+            <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 text-center shadow-sm">
+              <div class="text-2xl font-bold text-nontri-700 dark:text-nontri-400">3.85</div><div class="text-xs mt-1">GPAX</div>
+            </div>
+            <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 text-center shadow-sm">
+              <div class="text-2xl font-bold text-nontri-700 dark:text-nontri-400">5+</div><div class="text-xs mt-1">โครงงาน/แข่งขัน</div>
+            </div>
+            <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 text-center shadow-sm">
+              <div class="text-2xl font-bold text-nontri-700 dark:text-nontri-400">40+</div><div class="text-xs mt-1">ชม. จิตอาสา</div>
+            </div>
+          </div>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="portfolio.pdf" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-nontri-700 hover:bg-nontri-800 text-white font-medium shadow-lg shadow-nontri-700/30">
+              <i class="fa-solid fa-file-pdf"></i> ดาวน์โหลดพอร์ต PDF
+            </a>
+            <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-gold-400 text-slate-900 dark:text-white font-medium hover:bg-gold-400/20">
+              <i class="fa-solid fa-paper-plane"></i> ติดต่อฉัน
+            </a>
+          </div>
+        </div>
+
+        <div class="flex justify-center" data-aos="zoom-in" data-aos-delay="150">
+          <div class="relative float-anim">
+            <div class="absolute inset-0 rounded-full bg-gradient-to-br from-nontri-400 to-gold-400 blur-2xl opacity-60"></div>
+            <img src="profile.jpg"
+                 alt="รูปโปรไฟล์ ใจดี มีสุข" class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full object-cover border-8 border-white dark:border-slate-900 shadow-2xl">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. About Me ===== -->
+    <section id="about" class="py-20 bg-white dark:bg-slate-900/50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white text-center" data-aos="fade-up">เกี่ยวกับฉัน <span class="text-nontri-600">About Me</span></h2>
+        <div class="mt-12 grid md:grid-cols-2 gap-6">
+          <div class="card-lift rounded-3xl p-8 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800" data-aos="fade-up">
+            <div class="w-12 h-12 rounded-2xl bg-nontri-100 dark:bg-nontri-900 text-nontri-700 dark:text-nontri-300 grid place-items-center text-xl"><i class="fa-solid fa-school"></i></div>
+            <h3 class="mt-4 text-xl font-semibold text-slate-900 dark:text-white">ประวัติการศึกษา</h3>
+            <p class="mt-3 leading-relaxed">ปัจจุบันกำลังศึกษาอยู่ชั้น ม.6 แผนการเรียนวิทย์-คณิต โรงเรียนตัวอย่างวิทยา มีความสนใจด้านเทคโนโลยีและการเขียนโปรแกรม และตั้งใจศึกษาต่อเพื่อพัฒนาศักยภาพในสายอาชีพวิศวกรคอมพิวเตอร์</p>
+            <div class="mt-6 flex items-center justify-between rounded-2xl bg-white dark:bg-slate-800 p-4">
+              <span>เกรดเฉลี่ยสะสม (GPAX)</span><span class="text-2xl font-bold text-nontri-700 dark:text-nontri-400">3.85</span>
+            </div>
+          </div>
+          <div class="card-lift rounded-3xl p-8 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800" data-aos="fade-up" data-aos-delay="100">
+            <div class="w-12 h-12 rounded-2xl bg-gold-300/40 text-gold-600 grid place-items-center text-xl"><i class="fa-solid fa-lightbulb"></i></div>
+            <h3 class="mt-4 text-xl font-semibold text-slate-900 dark:text-white">แนวคิดในการเรียนรู้</h3>
+            <ul class="mt-4 space-y-4">
+              <li class="flex gap-3"><i class="fa-solid fa-circle-check text-nontri-600 mt-1"></i><div><b class="text-slate-900 dark:text-white">Continuous Learning</b><br>ชอบเรียนรู้สิ่งใหม่ๆ และลงมือทำจริง</div></li>
+              <li class="flex gap-3"><i class="fa-solid fa-circle-check text-nontri-600 mt-1"></i><div><b class="text-slate-900 dark:text-white">Teamwork &amp; Leadership</b><br>ทำงานร่วมกับผู้อื่นได้ดีและกล้าแสดงออก</div></li>
+              <li class="flex gap-3"><i class="fa-solid fa-circle-check text-nontri-600 mt-1"></i><div><b class="text-slate-900 dark:text-white">Problem Solving</b><br>คิดวิเคราะห์และแก้ปัญหาอย่างเป็นระบบ</div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. Skills ===== -->
+    <section id="skills" class="py-20">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white text-center" data-aos="fade-up">ทักษะและความสามารถ <span class="text-nontri-600">Skills</span></h2>
+        <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="card-lift rounded-3xl p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800" data-aos="fade-up">
+            <i class="fa-solid fa-book-open text-3xl text-nontri-600"></i>
+            <h3 class="mt-4 text-lg font-semibold text-slate-900 dark:text-white">ทักษะวิชาการ / ความถนัด</h3>
+            <div class="mt-4 flex flex-wrap gap-2 text-sm">
+              <span class="px-3 py-1 rounded-full bg-nontri-50 dark:bg-nontri-950 text-nontri-700 dark:text-nontri-300">เขียนโปรแกรม Python เบื้องต้น</span>
+              <span class="px-3 py-1 rounded-full bg-nontri-50 dark:bg-nontri-950 text-nontri-700 dark:text-nontri-300">โครงงานวิทยาศาสตร์</span>
+              <span class="px-3 py-1 rounded-full bg-nontri-50 dark:bg-nontri-950 text-nontri-700 dark:text-nontri-300">คณิตศาสตร์</span>
+              <span class="px-3 py-1 rounded-full bg-nontri-50 dark:bg-nontri-950 text-nontri-700 dark:text-nontri-300">ภาษาอังกฤษ</span>
+            </div>
+          </div>
+          <div class="card-lift rounded-3xl p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800" data-aos="fade-up" data-aos-delay="100">
+            <i class="fa-solid fa-laptop-code text-3xl text-nontri-600"></i>
+            <h3 class="mt-4 text-lg font-semibold text-slate-900 dark:text-white">เครื่องมือดิจิทัล</h3>
+            <div class="mt-4 flex flex-wrap gap-2 text-sm">
+              <span class="px-3 py-1 rounded-full bg-gold-300/30 text-gold-600 dark:text-gold-300">Canva</span>
+              <span class="px-3 py-1 rounded-full bg-gold-300/30 text-gold-600 dark:text-gold-300">Google Workspace</span>
+              <span class="px-3 py-1 rounded-full bg-gold-300/30 text-gold-600 dark:text-gold-300">MS PowerPoint</span>
+              <span class="px-3 py-1 rounded-full bg-gold-300/30 text-gold-600 dark:text-gold-300">CapCut</span>
+              <span class="px-3 py-1 rounded-full bg-gold-300/30 text-gold-600 dark:text-gold-300">Arduino</span>
+            </div>
+          </div>
+          <div class="card-lift rounded-3xl p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 sm:col-span-2 lg:col-span-1" data-aos="fade-up" data-aos-delay="200">
+            <i class="fa-solid fa-people-group text-3xl text-nontri-600"></i>
+            <h3 class="mt-4 text-lg font-semibold text-slate-900 dark:text-white">Soft Skills</h3>
+            <div class="mt-4 flex flex-wrap gap-2 text-sm">
+              <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800">การพูดในที่สาธารณะ</span>
+              <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800">การทำงานเป็นทีม</span>
+              <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800">การบริหารเวลา</span>
+              <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800">ความคิดสร้างสรรค์</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 5. Projects ===== -->
+    <section id="projects" class="py-20 bg-white dark:bg-slate-900/50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white text-center" data-aos="fade-up">โครงงานและผลงานเด่น <span class="text-nontri-600">Projects</span></h2>
+        <div class="mt-12 grid md:grid-cols-2 gap-6">
+          <article class="card-lift rounded-3xl overflow-hidden bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800" data-aos="fade-up">
+            <div class="h-40 bg-gradient-to-br from-nontri-500 to-nontri-800 grid place-items-center text-white text-5xl"><i class="fa-solid fa-seedling"></i></div>
+            <div class="p-8">
+              <span class="text-xs font-semibold uppercase tracking-wide text-gold-600">โครงงานนวัตกรรม</span>
+              <h3 class="mt-2 text-xl font-semibold text-slate-900 dark:text-white">ระบบรดน้ำต้นไม้อัตโนมัติด้วย Arduino</h3>
+              <p class="mt-3 leading-relaxed">ออกแบบระบบวัดความชื้นในดินและสั่งรดน้ำอัตโนมัติสำหรับแปลงผักของโรงเรียน ช่วยลดการใช้น้ำลงประมาณ 30% และได้รับรางวัลเหรียญเงินในงานสัปดาห์วิทยาศาสตร์</p>
+              <div class="mt-5 flex flex-wrap gap-2 text-xs">
+                <span class="px-3 py-1 rounded-full bg-nontri-100 dark:bg-nontri-950 text-nontri-700 dark:text-nontri-300">Arduino</span>
+                <span class="px-3 py-1 rounded-full bg-nontri-100 dark:bg-nontri-950 text-nontri-700 dark:text-nontri-300">C++</span>
+                <span class="px-3 py-1 rounded-full bg-nontri-100 dark:bg-nontri-950 text-nontri-700 dark:text-nontri-300">Sensor ความชื้น</span>
+              </div>
+            </div>
+          </article>
+          <article class="card-lift rounded-3xl overflow-hidden bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800" data-aos="fade-up" data-aos-delay="100">
+            <div class="h-40 bg-gradient-to-br from-gold-400 to-gold-600 grid place-items-center text-white text-5xl"><i class="fa-solid fa-hand-holding-heart"></i></div>
+            <div class="p-8">
+              <span class="text-xs font-semibold uppercase tracking-wide text-gold-600">จิตอาสา</span>
+              <h3 class="mt-2 text-xl font-semibold text-slate-900 dark:text-white">สอนคอมพิวเตอร์ให้น้องประถม</h3>
+              <p class="mt-3 leading-relaxed">ร่วมกับเพื่อนจัดกิจกรรมสอนการใช้คอมพิวเตอร์และ Scratch ให้นักเรียนประถมในชุมชน 4 สัปดาห์ รับผิดชอบออกแบบใบงานและประเมินผลผ่าน Google Forms</p>
+              <div class="mt-5 flex flex-wrap gap-2 text-xs">
+                <span class="px-3 py-1 rounded-full bg-gold-300/30 text-gold-600 dark:text-gold-300">Scratch</span>
+                <span class="px-3 py-1 rounded-full bg-gold-300/30 text-gold-600 dark:text-gold-300">Google Forms</span>
+                <span class="px-3 py-1 rounded-full bg-gold-300/30 text-gold-600 dark:text-gold-300">การนำเสนองาน</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 6. Activities (Timeline) ===== -->
+    <section id="activities" class="py-20">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white text-center" data-aos="fade-up">กิจกรรมและประสบการณ์ <span class="text-nontri-600">Activities</span></h2>
+        <ol class="mt-12 relative border-l-2 border-nontri-200 dark:border-nontri-900 ml-4 space-y-10">
+          <li class="relative pl-8 timeline-dot" data-aos="fade-left">
+            <span class="text-sm font-semibold text-nontri-700 dark:text-nontri-400">ปี 2568</span>
+            <div class="card-lift mt-2 rounded-2xl p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <h3 class="font-semibold text-slate-900 dark:text-white">ประธานชุมนุมคอมพิวเตอร์</h3>
+              <p class="text-sm text-slate-500 dark:text-slate-400">ชุมนุมคอมพิวเตอร์ โรงเรียนตัวอย่างวิทยา</p>
+              <p class="mt-2">วางแผนกิจกรรมประจำภาคเรียน ประสานงานสมาชิก 35 คน และจัดเวิร์กช็อปเขียนโปรแกรมเบื้องต้น</p>
+            </div>
+          </li>
+          <li class="relative pl-8 timeline-dot" data-aos="fade-left" data-aos-delay="100">
+            <span class="text-sm font-semibold text-nontri-700 dark:text-nontri-400">ปี 2567</span>
+            <div class="card-lift mt-2 rounded-2xl p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <h3 class="font-semibold text-slate-900 dark:text-white">ผู้เข้าร่วมค่าย</h3>
+              <p class="text-sm text-slate-500 dark:text-slate-400">ค่ายวิศวกรรมคอมพิวเตอร์สำหรับนักเรียนมัธยมปลาย</p>
+              <p class="mt-2">เรียนรู้พื้นฐานวงจรไฟฟ้าและการเขียนโปรแกรม ทำโปรเจกต์หุ่นยนต์เดินตามเส้นร่วมกับทีม 5 คน</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== 7. Certificates & Awards ===== -->
+    <section id="awards" class="py-20 bg-white dark:bg-slate-900/50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white text-center" data-aos="fade-up">เกียรติบัตรและรางวัล <span class="text-nontri-600">Awards</span></h2>
+        <div class="mt-12 grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div class="card-lift rounded-3xl p-6 flex gap-4 items-start bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800" data-aos="fade-up">
+            <div class="w-14 h-14 shrink-0 rounded-2xl bg-gold-300/40 text-gold-600 grid place-items-center text-2xl"><i class="fa-solid fa-medal"></i></div>
+            <div>
+              <h3 class="font-semibold text-slate-900 dark:text-white">รางวัลเหรียญเงิน การประกวดโครงงานวิทยาศาสตร์</h3>
+              <p class="text-sm mt-1">สำนักงานเขตพื้นที่การศึกษา (ตัวอย่าง)</p>
+              <span class="mt-3 inline-flex items-center gap-1 text-xs font-medium text-nontri-700 dark:text-nontri-400"><i class="fa-solid fa-circle-check"></i> Verified</span>
+            </div>
+          </div>
+          <div class="card-lift rounded-3xl p-6 flex gap-4 items-start bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800" data-aos="fade-up" data-aos-delay="100">
+            <div class="w-14 h-14 shrink-0 rounded-2xl bg-nontri-100 dark:bg-nontri-950 text-nontri-700 dark:text-nontri-300 grid place-items-center text-2xl"><i class="fa-solid fa-certificate"></i></div>
+            <div>
+              <h3 class="font-semibold text-slate-900 dark:text-white">เกียรติบัตรผ่านการอบรม Python for Beginners</h3>
+              <p class="text-sm mt-1">หลักสูตรออนไลน์ (ตัวอย่าง)</p>
+              <span class="mt-3 inline-flex items-center gap-1 text-xs font-medium text-nontri-700 dark:text-nontri-400"><i class="fa-solid fa-circle-check"></i> Verified</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 8. Contact ===== -->
+    <section id="contact" class="py-20">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white text-center" data-aos="fade-up">ติดต่อฉัน <span class="text-nontri-600">Contact</span></h2>
+        <div class="mt-12 grid lg:grid-cols-2 gap-8">
+          <div class="space-y-4" data-aos="fade-up">
+            <a href="mailto:jaidee.meesuk@example.com" class="card-lift flex items-center gap-4 rounded-2xl p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <span class="w-12 h-12 rounded-xl bg-nontri-100 dark:bg-nontri-950 text-nontri-700 dark:text-nontri-300 grid place-items-center"><i class="fa-solid fa-envelope"></i></span>
+              <span><span class="block text-sm text-slate-500">Email</span><span class="font-medium text-slate-900 dark:text-white break-all">jaidee.meesuk@example.com</span></span>
+            </a>
+            <a href="tel:0812345678" class="card-lift flex items-center gap-4 rounded-2xl p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <span class="w-12 h-12 rounded-xl bg-nontri-100 dark:bg-nontri-950 text-nontri-700 dark:text-nontri-300 grid place-items-center"><i class="fa-solid fa-phone"></i></span>
+              <span><span class="block text-sm text-slate-500">โทรศัพท์</span><span class="font-medium text-slate-900 dark:text-white">081-234-5678</span></span>
+            </a>
+            <a href="https://instagram.com/" target="_blank" rel="noopener" class="card-lift flex items-center gap-4 rounded-2xl p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <span class="w-12 h-12 rounded-xl bg-gold-300/40 text-gold-600 grid place-items-center"><i class="fa-brands fa-instagram"></i></span>
+              <span><span class="block text-sm text-slate-500">Instagram</span><span class="font-medium text-slate-900 dark:text-white">@jaidee.portfolio</span></span>
+            </a>
+          </div>
+          <form id="contactForm" class="rounded-3xl p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4" data-aos="fade-up" data-aos-delay="100">
+            <div>
+              <label for="name" class="block text-sm font-medium mb-1">ชื่อของคุณ</label>
+              <input id="name" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-transparent px-4 py-3 focus:outline-none focus:ring-2 focus:ring-nontri-500">
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium mb-1">อีเมล</label>
+              <input id="email" type="email" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-transparent px-4 py-3 focus:outline-none focus:ring-2 focus:ring-nontri-500">
+            </div>
+            <div>
+              <label for="msg" class="block text-sm font-medium mb-1">ข้อความ</label>
+              <textarea id="msg" rows="4" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-transparent px-4 py-3 focus:outline-none focus:ring-2 focus:ring-nontri-500"></textarea>
+            </div>
+            <button class="w-full py-3 rounded-xl bg-nontri-700 hover:bg-nontri-800 text-white font-medium"><i class="fa-solid fa-paper-plane mr-2"></i>ส่งข้อความ</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-8 border-t border-slate-200 dark:border-slate-800 text-center text-sm text-slate-500">
+    © 2569 ใจดี มีสุข • สร้างด้วย HTML + Tailwind CSS • เผยแพร่บน GitHub Pages
+  </footer>
+
+  <!-- Back to Top -->
+  <button id="toTop" aria-label="กลับขึ้นด้านบน" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-nontri-700 text-white shadow-lg opacity-0 pointer-events-none transition-opacity duration-300 hover:bg-nontri-800">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-[70] opacity-0 translate-y-4 pointer-events-none px-6 py-4 rounded-2xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-2xl flex items-center gap-3">
+    <i class="fa-solid fa-circle-check text-nontri-400 text-xl"></i> ส่งข้อความเรียบร้อยแล้ว ขอบคุณค่ะ!
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true, offset: 60 });
+
+    // Dark / Light toggle
+    document.getElementById('themeBtn').addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) {}
+    });
+
+    // Mobile menu
+    const mobileMenu = document.getElementById('mobileMenu');
+    document.getElementById('menuBtn').addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+    // Scroll progress + back to top
+    const progress = document.getElementById('progress');
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+      const show = window.scrollY > 400;
+      toTop.classList.toggle('opacity-0', !show);
+      toTop.classList.toggle('pointer-events-none', !show);
+    });
+    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Contact form toast
+    const toast = document.getElementById('toast');
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      e.target.reset();
+      toast.classList.remove('opacity-0', 'translate-y-4');
+      setTimeout(() => toast.classList.add('opacity-0', 'translate-y-4'), 3000);
+    });
+  </script>
+</body>
+</html>
